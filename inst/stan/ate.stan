@@ -1,40 +1,46 @@
 data {
-  int<lower=0> N;         // number of subjects
-  vector[N] group;        // group: 0=control,1=treatment
-  int<lower=0> r0;        // number of repeats@T0
-  int<lower=0> r1;        // number of repeats@T1
-  matrix[r0,N] w0;  
-  matrix[r1,N] w1;  
+  int<lower=1> N; 
+  vector[N] w; 
+  vector[N] arm; 
+  vector[N] tm;
+  int<lower=1> nsubj;
+  real mu;
+  real sigma;
 }
 parameters {
-  vector[N] x0;		 // unknown true value
-  real es0;              // effect size under sham treatment
-  real es1;              // effect size under active treatment
-  real mu0;              // prior location=baseline mean
-  real sigma0;           // prior scale=baseline SD
-  real mu1;              // prior location=baseline mean
-  real sigma1;           // prior scale=baseline SD
-  real<lower=0> tau;     // measurement noise
-  real<lower=0> sig_active;  // SD of active ES
-  real<lower=0> sig_sham;    // SD of placebo ES
+  real<lower=-1, upper=1> p0;
+  real<lower=-1, upper=1> p1;
+  vector[nsubj] mui; 
+  real mu0;              // baseline mean
+  real sigma0;           // baseline SD
+  real<lower=0> sa;  // var of active ES
+  real<lower=0> ss;    // var of placebo ES
+  real<lower=0> tau;   //var of ME+within subj var 
 }
 transformed parameters {
-  real<lower=0> sigma_t0;
-  real<lower=0> sigma_t1;
-  sigma_t0 = sqrt(tau*tau+sig_sham*sig_sham); 
-  sigma_t1 = sqrt(tau*tau+sig_active*sig_active+sig_sham*sig_sham);
+  vector[N] muii;
+  vector[N] sii;
+  for(i in 1:N){
+    muii[i] = mui[1+(i-1)%nsubj]*(1.0+p0*tm[i]+p1*tm[i]*arm[i]);
+    sii[i] = sqrt(tau + ss*tm[i] + sa*tm[i]*arm[i]);
+  }
 }
 model {
-  x0 ~ normal(mu0*(1-group)+mu1*group, sigma0*(1-group)+sigma1*group); 
-  for(i in 1:r0)
-    w0[i] ~ normal(x0, tau);    // measurement model
-  for(i in 1:r1)
-    w1[i] ~ normal(x0 + es0 + es1 * group,
-    sigma_t0 * (1-group) + sigma_t1 * group);
+  mui ~ normal(mu0, sqrt(sigma0));
+  mu0 ~ normal(mu, sigma);
+  tau ~ inv_gamma(1.0, 1.0);
+  sigma0 ~ inv_gamma(1.0, 1.0);
+  sa ~ inv_gamma(1.0, 1.0);
+  ss ~ inv_gamma(1.0, 1.0);
+  w ~ normal(muii,sii);
 }
 generated quantities {
   real es_abs; 
   real es_rel; 
-  es_rel = es1/mu1;
-  es_abs = es1;
+  real es0; 
+  real es1; 
+  es_rel = p1;
+  es_abs = p1 * mu0;
+  es0 = p0 * mu0;
+  es1 = (p1+p0) * mu0;
 }

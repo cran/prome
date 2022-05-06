@@ -2,15 +2,13 @@
 \alias{PropHM}
 \title{Bayesian Hierarchical Model for Information Borrowing for Proportions}
 \usage{
-PropHM(x, n, weights)
+PropHM(x, n, kappa)
 }
 \arguments{
 \item{x}{Numeric vector of events.}
-
 \item{n}{Numberic vector of group sample sizes.}
-
-\item{weights}{Numberic vector of weights (for the power prior method).}
-
+\item{kappa}{\code{kappa=alpha+beta>1}. Must be given if the number of
+  subgroups is 2.}
 }
 \value{
 \itemize{
@@ -22,8 +20,9 @@ PropHM(x, n, weights)
 \description{
 To compute the proportions of the subgroups assuming the subgroups
 follow the same binomial distribution with parameter \code{p}.
-A beta prior with parameters \code{alpha} and \code{beta} are used
-(\code{alpha+beta=2}).
+The approach on partial pooling by Bob Carpenter has been used --
+"Hierarchical Partial Pooling for Repeated Binary Trials"
+https://mc-stan.org/users/documentation/case-studies/pool-binary-trials.html
 }
 \examples{
 out <- PropHM(x=c(5,10,2),n=c(20,50,30))

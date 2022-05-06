@@ -1,29 +1,45 @@
-MeanHM <- function(x,group,sigma){
-    stopifnot(sigma>0)
-    k <- length(x)
-    if(length(group) != k)
-        stop("lengths of 'x' and 'group' differ")
-    fgrp <- as.factor(group)
-    xbar <- tapply(x,fgrp,mean,na.rm=TRUE)
-    s <- tapply(x,fgrp,sd,na.rm=TRUE)
-    n <- tapply(x,fgrp,length)
-    n.na <- tapply(is.na(x),fgrp,sum)
-    
-    y <- data.frame(
-        size=n,na=n.na,
-        mean=round(xbar,4),
-        stdev=round(s,4))
-
-    prop_dat <- list(N=length(xbar),sigma=sigma,x=xbar,sig=s/sqrt(n-n.na))
-    fit <- rstan::sampling(stanmodels$hmmean,
-                           data = prop_dat,
-                           refresh=0)
-    la <- rstan::extract(fit, permuted = TRUE)
-    theta <- mean(la$theta); 
-    mu <- apply(la$mu,2,mean); 
-    y$estimate <- round(mu,4)
-    out <- list(data=y,theta=theta,sigma=sigma)
+MeanHM <- function(x,sigma){
+    if(missing(sigma)){
+        out <- .meanhm1(x)
+    }else{
+        out <- .meanhm2(x,sigma=sigma)
+    }
     out
+}
+
+.meanhm1 <- function(x){
+    x <- as.matrix(x)
+    nr <- nrow(x)
+    nc <- ncol(x)
+    mydat <- list(N=nr,M=nc,x=t(x))
+    fit <- rstan::sampling(stanmodels$hm2mean,
+                               data = mydat,
+                               refresh=0)
+    la <- rstan::extract(fit, permuted = TRUE)
+    theta.mean <- mean(la$theta); 
+    theta.median <- median(la$theta); 
+    sigma.median <- sqrt(median(la$sigma)); 
+    sigma.mean <- sqrt(mean(la$sigma)); 
+    out <- list(theta.mean=theta.mean,
+                theta.median=theta.median,
+                sigma.mean=sigma.mean,
+                sigma.median=sigma.median)
+}
+
+.meanhm2 <- function(x,sigma){
+    x <- as.matrix(x)
+    nr <- nrow(x)
+    nc <- ncol(x)
+    if(sigma <= 0) stop("invalid 'sigma'")
+    mydat <- list(N=nr,M=nc,x=t(x),sigma=sigma)
+    fit <- rstan::sampling(stanmodels$hmmean,
+                               data = mydat,
+                               refresh=0)
+    la <- rstan::extract(fit, permuted = TRUE)
+    theta.mean <- mean(la$theta); 
+    theta.median <- median(la$theta); 
+    out <- list(theta.mean=theta.mean,
+                theta.median=theta.median)
 }
 
 

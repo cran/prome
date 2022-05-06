@@ -11,9 +11,7 @@
   \tabular{lll}{
     \code{w0}  \tab matrix  \tab measures at baseline \cr
     \code{w1}  \tab matrix  \tab measures at follow-up time \cr
-    \code{group}  \tab character  \tab group assignment \cr
+    \code{group}  \tab character  \tab group assignment
   }
 }
-
-
 \keyword{datasets}
