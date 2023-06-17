@@ -1,7 +1,8 @@
-5a24366ac950ccbc189ca5bd09d49ef0 *DESCRIPTION
+bf36cb72bbea54d0e487dd5c1e8be12d *DESCRIPTION
 f80385a4fac08f325aa2284dce9fba9b *LICENSE
-de0a643024b0e3c22d803b9125d8a0bf *NAMESPACE
+30533e1ed2f3384fb1a614edd57a1e41 *NAMESPACE
 b6bcee2d3a972f5bf80739fed4d967ae *R/bate.R
+e3c7fbf6aa1dc39d74ac471a600cc3bf *R/crossover2x2.R
 a8aaea85f7670683c0eb1f6359828905 *R/means.R
 56fadb778143bbff83b9fcca0c2273fa *R/prome-package.R
 14ad3ccf8d647460994d8f4a0a7fd65e *R/proportions.R
@@ -15,6 +16,8 @@ fff770d3be8193cb8d0b516d71a96895 *data/datalist
 e90b72a216faa3a0ff11c1d2e0e59f40 *inst/stan/ate.stan
 8ed15aa0be8250775f08cb81ad6828b9 *inst/stan/ate2m.stan
 4363df55816894abfc4ece66c0a05a59 *inst/stan/ate4m.stan
+7e29182e277cb891ee72b85b0c4f3fbe *inst/stan/cross.stan
+5325e5afc3ea2d083801dda927722226 *inst/stan/cross1.stan
 fcd142e0b3c7a6d722d04b2b7d5d2cbb *inst/stan/hm2mean.stan
 2eea9766612205042d0213ef2156b150 *inst/stan/hmmean.stan
 977b512518b202ca62b7927f3de0f863 *inst/stan/include/license.stan
@@ -26,6 +29,7 @@ ac116bbeebe428db9b60781e525256f2 *inst/stan/proportion.stan
 02908afff8399bbcea58340361281a82 *man/meanHM.Rd
 4f201d4117c01b202a0c00d6ab5acf2f *man/prome-package.Rd
 11d95248ba404334a1f984dbb7c2ea8a *man/propHM.Rd
+bab5d5f06814bc631ed2f8353f142afc *man/xover.Rd
 ec1f7adc46f14d6b1c5481244554415e *src/Makevars
 cebeb8bdd5adb558f381741990eb1085 *src/Makevars.win
 a8209cd56b3d52605a04ecc2f08d4624 *src/RcppExports.cpp
