@@ -1,4 +1,4 @@
-bf36cb72bbea54d0e487dd5c1e8be12d *DESCRIPTION
+7eea360b41e6221b12342c6c118c9b53 *DESCRIPTION
 f80385a4fac08f325aa2284dce9fba9b *LICENSE
 30533e1ed2f3384fb1a614edd57a1e41 *NAMESPACE
 b6bcee2d3a972f5bf80739fed4d967ae *R/bate.R
@@ -21,8 +21,8 @@ e90b72a216faa3a0ff11c1d2e0e59f40 *inst/stan/ate.stan
 fcd142e0b3c7a6d722d04b2b7d5d2cbb *inst/stan/hm2mean.stan
 2eea9766612205042d0213ef2156b150 *inst/stan/hmmean.stan
 977b512518b202ca62b7927f3de0f863 *inst/stan/include/license.stan
-ac116bbeebe428db9b60781e525256f2 *inst/stan/proportion.stan
-2e0928a108e1086832b185d25271ce0f *inst/stan/proportions.stan
+bcdfb0794002a5e99c83363a2aaeb413 *inst/stan/proportion.stan
+1a9232aa5d427d367980eb871fec2e92 *inst/stan/proportions.stan
 016740ca8dd1a391b3fa1d69393d92e4 *inst/stan/zate.stan
 23028e0feb8129a29b0cda1ec5fd1673 *man/bate.Rd
 8173ecc242d265f95af5334e0c8e6d2e *man/data100x3.Rd
