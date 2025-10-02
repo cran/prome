@@ -1,5 +1,8 @@
 ## 06/16/2023: To analyze data from AB/BA crossover design.
 ## remove all missing values. will be updated later.
+##
+## Outputs: pi2-pi1 reflect the correct period difference
+## only if lambda2 + lambda2 = 0. dpi = (pi2-pi1) + (lambda2+lambda1)/2
 
 .xosum <- function(x){
     tout <- t.test(x)
@@ -33,7 +36,8 @@ xover1 <- function(group,y1,y2,...){
         if(sum(!sele.na) < 6){
             stop("sample too small, too many missing values")
         }else{
-            warning("missing value(s) removed!")
+            cat("\nWarning message:\n  ", sum(sele.na),
+                "records with missing value(s) excluded!\n")
             y1 <- y1[!sele.na]
             y2 <- y2[!sele.na]
             group <- as.character(group[!sele.na])
@@ -89,6 +93,7 @@ xover1 <- function(group,y1,y2,...){
     qtl <- quantile(la$lambda_d, prob=c(0.025,0.975))
     out <- rbind(out,tmp)
     out2 <- rbind(out2,qtl)
+
     xout2 <- cbind(out, out2)
     rownames(xout2) <- c("tau(2-1)","period(2-1)","lambda(2-1)")
 
@@ -113,7 +118,8 @@ xover0 <- function(group,y1,y2,y0,...){
         if(sum(!sele.na) < 6){
             stop("sample too small, too many missing values")
         }else{
-            warning("missing value(s) removed!")
+            cat("\nWarning message:\n  ", sum(sele.na),
+                "records with missing value(s) excluded!\n")
             y0 <- y0[!sele.na]
             y1 <- y1[!sele.na]
             y2 <- y2[!sele.na]
@@ -144,19 +150,15 @@ xover0 <- function(group,y1,y2,y0,...){
                          "group(2), period=1","group(2), period=2")
     names(xout1) <- c("n","mean","sd","ll.95","ul.95","Shapiro")
     
-    sampledat <- list(n1=n1, n2=n2,y10=y10,y20=y20,
-                      y11=y11,y12=y12,y21=y21,y22=y22)
-    fit4 <- rstan::sampling(stanmodels$cross,
+    sampledat <- list(n1=n1, n2=n2,
+                      y10=y10,y11=y11,y12=y12,
+                      y20=y20,y21=y21,y22=y22)
+    fit4 <- rstan::sampling(stanmodels$cross0,
                             data = sampledat,
                             iter=5000*2,
                             refresh=0,...)
     la <- rstan::extract(fit4, permuted = TRUE)
     out <- NULL; out2 <- NULL
-
-    tmp <- summary(la$mu);
-    qtl <- quantile(la$mu, prob=c(0.025,0.975))
-    out <- rbind(out,tmp)
-    out2 <- rbind(out2,qtl)
 
     tmp <- summary(la$tau_d);
     qtl <- quantile(la$tau_d, prob=c(0.025,0.975))
@@ -172,8 +174,9 @@ xover0 <- function(group,y1,y2,y0,...){
     qtl <- quantile(la$lambda_d, prob=c(0.025,0.975))
     out <- rbind(out,tmp)
     out2 <- rbind(out2,qtl)
+
     xout2 <- cbind(out, out2)
-    rownames(xout2) <- c("mean(0)","tau(2-1)","period(2-1)","lambda(2-1)")
+    rownames(xout2) <- c("tau(2-1)","period(2-1)","lambda(2-1)")
 
     out <- structure(
         list(stat = xout1, best=xout2, xfit = fit4), class='xover')
@@ -182,7 +185,7 @@ xover0 <- function(group,y1,y2,y0,...){
 print.xover <- function(x,...){
     cat("\nSummary statistics:\n")
     print(x$stat)
-    cat("\n\nBayesian estimates:\n")
+    cat("\nBayesian estimates:\n")
     print(round(x$best,3))
 }
 

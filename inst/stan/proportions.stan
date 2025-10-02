@@ -1,7 +1,7 @@
 data {
   int<lower=0> J;
-  array[J] int y;
-  array[J] int n;
+  int y[J];
+  int n[J];
 }
 parameters {
   real<lower=0,upper=1> phi;

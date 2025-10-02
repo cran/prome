@@ -1,7 +1,7 @@
 data {
   int<lower=0> J;
-  array[J] int y;
-  array[J] int n;
+  int y[J];
+  int n[J];
   real<lower=1> kappa;
 }
 parameters {
