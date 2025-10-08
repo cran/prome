@@ -24,9 +24,9 @@ To be updated.
 }
 \examples{
 \donttest{
-guess <- rbinomial(100,1,0.5)
-group <- rbinomial(100,1,0.5)
+guess <- rbinom(100,1,0.5)
+group <- rbinom(100,1,0.5)
 x <- rnorm(100,3,1)
-LSLogit(y=x,group=group,guess=guess)
+blinding.lslogit(x=x,group=group,guess=guess)
 }
 }

@@ -117,10 +117,11 @@ blinding.lslogit <- function(x, group, guess, mu0 = 0, s0 = 1, ...){
         data    = stan_data,
         refresh = 0, ...)
     la <- rstan::extract(fit, permuted = TRUE)
-    p0 <- la$theta > 0
+    p0 <- mean(la$theta > 0)
+    p1 <- mean(la$gamma1 > 0)
     
     res <- .EstimateEffects(fit, y, group, guess)
-    list(fit = fit, summary = res$summary, ctest = mean(p0))
+    list(fit = fit, summary = res$summary, test.theta = p0, test.beta2=p1)
 }
 
 ##iter = 2000,

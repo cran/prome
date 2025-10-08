@@ -1,8 +1,8 @@
-93c5d5b8f665ed2a92acb0b22d92ca3b *DESCRIPTION
+c6c7e6793f13b837abe0f51b58e1d47e *DESCRIPTION
 f80385a4fac08f325aa2284dce9fba9b *LICENSE
 8429ada56c82c22e6eddc101b7225155 *NAMESPACE
 b6bcee2d3a972f5bf80739fed4d967ae *R/bate.R
-8ef996a196bc2402eeffaed6f804a284 *R/blindinglogit.R
+6e36b224637458121c586b2d3fb4a127 *R/blindinglogit.R
 3bb01fb5794bdc32cd6891ef49e43900 *R/crossover2x2.R
 a8aaea85f7670683c0eb1f6359828905 *R/means.R
 56fadb778143bbff83b9fcca0c2273fa *R/prome-package.R
@@ -28,7 +28,7 @@ ac116bbeebe428db9b60781e525256f2 *inst/stan/proportion.stan
 016740ca8dd1a391b3fa1d69393d92e4 *inst/stan/zate.stan
 23028e0feb8129a29b0cda1ec5fd1673 *man/bate.Rd
 8173ecc242d265f95af5334e0c8e6d2e *man/data100x3.Rd
-532241cd916a6d31699c49afc4d9f6a2 *man/lslogit.Rd
+88abb28c501114443d4c31f9f77d98e6 *man/lslogit.Rd
 02908afff8399bbcea58340361281a82 *man/meanHM.Rd
 4f201d4117c01b202a0c00d6ab5acf2f *man/prome-package.Rd
 11d95248ba404334a1f984dbb7c2ea8a *man/propHM.Rd
