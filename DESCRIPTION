@@ -1,6 +1,6 @@
 Package: prome
 Title: Patient-Reported Outcome Data Analysis with Stan
-Version: 2.0.1.9
+Version: 3.0.1.5
 Authors@R: 
     person("Bin", "Wang", , "bwang831@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3689-6932"))
@@ -9,15 +9,15 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 Biarch: true
-Depends: R (>= 3.5.0), posterior
+Depends: R (>= 3.5.0)
 Imports: methods, Rcpp (>= 0.12.0), rstan (>= 2.18.1), rstantools (>=
-        2.1.1)
+        2.1.1), BI
 LinkingTo: BH (>= 1.66.0), Rcpp (>= 0.12.0), RcppEigen (>= 0.3.3.3.0),
         rstan (>= 2.18.1), StanHeaders (>= 2.18.0)
 SystemRequirements: GNU make
 NeedsCompilation: yes
-Packaged: 2025-10-07 03:14:14 UTC; alkb
+Packaged: 2025-11-07 18:22:21 UTC; alkb
 Author: Bin Wang [aut, cre] (ORCID: <https://orcid.org/0000-0002-3689-6932>)
 Maintainer: Bin Wang <bwang831@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-10-08 12:00:01 UTC
+Date/Publication: 2025-11-08 06:50:02 UTC
